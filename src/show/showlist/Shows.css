@@ -8,3 +8,16 @@
 .show{
   margin-top: 100px;
 }
+
+.ant-card-meta-title{
+  text-align: center;
+}
+
+.ant-row{
+  margin: 10px 0;
+  border: 1px solid lightgrey;
+}
+
+.show-details-col{
+  padding: 10px;
+}
