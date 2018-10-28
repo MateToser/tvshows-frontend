@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
-import { getCurrentUser } from '../../api/api';
+import { getUserProfile } from '../../api/api';
 import { Avatar } from 'antd';
 import LoadingIndicator  from '../../common/LoadingIndicator';
 import './Profile.css';
 import NotFound from '../../common/NotFound';
-//import ServerError from '../../common/ServerError';
+import ServerError from '../../common/ServerError';
+import AuthRequired from '../../common/AuthRequired';
 
+
+function LikedShows(props){
+  const content = props.shows.map((show) =>
+      <li>{show.title}</li>
+  );
+  return (
+    <div className="user-shows">
+    <h1>Liked shows:</h1>
+    <ul>
+        {content}
+    </ul>
+    </div>
+  );
+
+}
 
 class Profile extends Component {
     constructor(props) {
@@ -22,7 +38,7 @@ class Profile extends Component {
             isLoading: true
         });
 
-        getCurrentUser(id)
+        getUserProfile(id)
         .then(response => {
             this.setState({
                 user: response,
@@ -32,6 +48,11 @@ class Profile extends Component {
             if(error.status === 404) {
                 this.setState({
                     notFound: true,
+                    isLoading: false
+                });
+            } else if(error.status === 401) {
+                this.setState({
+                    authRequired: true,
                     isLoading: false
                 });
             } else {
@@ -63,9 +84,13 @@ class Profile extends Component {
             return <NotFound />;
         }
 
-        /*if(this.state.serverError) {
+        if(this.state.authRequired) {
+            return <AuthRequired />;
+        }
+
+        if(this.state.serverError) {
             return <ServerError />;
-        }*/
+        }
 
         return (
             <div className="profile">
@@ -83,6 +108,7 @@ class Profile extends Component {
                                     <div className="username">{this.state.user.email}</div>
                                 </div>
                             </div>
+                            <LikedShows shows={this.state.user.shows}/>
                         </div>
                     ): null
                 }

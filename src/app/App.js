@@ -16,7 +16,6 @@ import AppHeader from '../common/AppHeader';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
 import Shows from '../show/showlist/Shows';
-//import PrivateRoute from '../common/PrivateRoute';
 
 import { Layout, notification } from 'antd';
 const { Content } = Layout;
@@ -77,7 +76,7 @@ class App extends Component {
       description: description,
     });
   }
-  
+
   handleLogin() {
     notification.success({
       message: 'TV Shows',

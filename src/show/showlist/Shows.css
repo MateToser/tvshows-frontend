@@ -13,11 +13,17 @@
   text-align: center;
 }
 
-.ant-row{
+.show-row{
   margin: 10px 0;
   border: 1px solid lightgrey;
 }
 
 .show-details-col{
   padding: 10px;
+}
+
+.show-like{
+  padding: 4px;
+  border: 1px solid lightgrey;
+  border-radius: 10%;
 }

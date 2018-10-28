@@ -1,0 +1,23 @@
+.auth-required {
+    max-width: 500px;
+    margin: 0 auto;
+    margin-top: 100px;
+    padding: 40px;
+    border: 1px solid #c8c8c8;
+    text-align: center;
+}
+
+.auth-required .title {
+    font-size: 50px;
+    letter-spacing: 10px;
+    margin-bottom: 10px;
+}
+
+.auth-required .desc {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.login-btn {
+    min-width: 160px;
+}

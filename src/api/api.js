@@ -77,3 +77,10 @@ export function getUserProfile(id) {
         method: 'GET'
     });
 }
+
+export function likeShow(id) {
+    return request({
+        url: API_BASE_URL + "/show/like/" + id,
+        method: 'POST'
+    });
+}
