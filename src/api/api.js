@@ -84,3 +84,10 @@ export function likeShow(id) {
         method: 'POST'
     });
 }
+
+export function getShowById(id) {
+    return request({
+        url: API_BASE_URL + "/show/id/" + id,
+        method: 'GET'
+    });
+}

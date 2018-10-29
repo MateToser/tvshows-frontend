@@ -1,27 +1,12 @@
 import React, { Component } from 'react';
 import { getUserProfile } from '../../api/api';
-import { Avatar } from 'antd';
+import { List, Avatar } from 'antd';
 import LoadingIndicator  from '../../common/LoadingIndicator';
 import './Profile.css';
 import NotFound from '../../common/NotFound';
 import ServerError from '../../common/ServerError';
 import AuthRequired from '../../common/AuthRequired';
-
-
-function LikedShows(props){
-  const content = props.shows.map((show) =>
-      <li>{show.title}</li>
-  );
-  return (
-    <div className="user-shows">
-    <h1>Liked shows:</h1>
-    <ul>
-        {content}
-    </ul>
-    </div>
-  );
-
-}
+import { Link } from 'react-router-dom';
 
 class Profile extends Component {
     constructor(props) {
@@ -108,7 +93,20 @@ class Profile extends Component {
                                     <div className="username">{this.state.user.email}</div>
                                 </div>
                             </div>
-                            <LikedShows shows={this.state.user.shows}/>
+                            <List
+                              locale={{ emptyText: "No liked shows yet." }}
+                              itemLayout="horizontal"
+                              dataSource={this.state.user.shows}
+                              renderItem={item => (
+                                <List.Item>
+                                  <List.Item.Meta
+                                    avatar={<Link to={"../../show/id/" + item.id}><Avatar src={item.posterUrl} /></Link>}
+                                    title={<Link to={"../../show/id/" + item.id}>{item.title}</Link>}
+                                    description={item.released + " | " + item.seasons + " season(s)"}
+                                  />
+                                </List.Item>
+                              )}
+                            />
                         </div>
                     ): null
                 }

@@ -2,7 +2,6 @@
     margin-bottom: 44px;
     padding-top: 40px;
     padding-bottom: 20px;
-    text-align: center;
 }
 
 .show{
@@ -16,14 +15,22 @@
 .show-row{
   margin: 10px 0;
   border: 1px solid lightgrey;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 }
 
 .show-details-col{
   padding: 10px;
 }
 
-.show-like{
+.show-dislike:hover{
+  color: red;
+}
+
+.show-like, .show-dislike, .show-more{
   padding: 4px;
   border: 1px solid lightgrey;
   border-radius: 10%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
 }

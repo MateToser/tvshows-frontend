@@ -6,6 +6,7 @@ import './Shows.css';
 import NotFound from '../../common/NotFound';
 import AuthRequired from '../../common/AuthRequired';
 import ServerError from '../../common/ServerError';
+import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -16,8 +17,9 @@ function ListShows(props) {
       <Col span={12} xs={24} sm={12} md={6} lg={6}>
           <Card
           hoverable cover={<img alt="" src={show.show.posterUrl} />}
-          actions={[<div>{show.isLiked ? <span className="show-like" onClick={LikeShow.bind(this, show.show.id)}><Icon type="like"/> Like</span>
-                                       : <span className="show-like" onClick={LikeShow.bind(this, show.show.id)}><Icon type="dislike"/> Dislike</span>}</div>]}>
+          actions={[<div>{show.isLiked ? <span className="show-dislike" onClick={LikeShow.bind(this, show.show.id)}><Icon type="dislike"/> Dislike</span>
+                                       : <span className="show-like" onClick={LikeShow.bind(this, show.show.id)}><Icon type="like"/> Like</span>}</div>,
+                                       <Link to={"/show/id/" + show.show.id}><span className="show-more"><Icon type="info-circle"/> More</span></Link>]}>
             <Meta title={show.show.title}/>
           </Card>
       </Col>
@@ -57,7 +59,7 @@ function LikeShow(id){
   window.location.reload();
 }
 
-class Show extends Component {
+class Shows extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -132,4 +134,4 @@ class Show extends Component {
     }
 }
 
-export default Show;
+export default Shows;
