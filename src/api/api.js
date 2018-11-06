@@ -112,3 +112,17 @@ export function searchShows(title) {
         method: 'GET'
     });
 }
+
+export function trackEpisode(episodeId) {
+    return request({
+        url: API_BASE_URL + "/track/episode/" + episodeId,
+        method: 'POST'
+    });
+}
+
+export function trackSeason(seasonId) {
+    return request({
+        url: API_BASE_URL + "/track/season/" + seasonId,
+        method: 'POST'
+    });
+}

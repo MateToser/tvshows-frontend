@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { getShowById, likeShow, addComment } from '../../api/api';
-import { Card, Row, Col, BackTop, Icon, Tag, Input, Button, List, Steps, Popover, Progress, Collapse } from 'antd';
+import { getShowById, likeShow, addComment, trackEpisode, trackSeason } from '../../api/api';
+import { Card, Row, Col, BackTop, Icon, Tag, Input, Button, List, Steps, Popover, Progress, Collapse, Divider } from 'antd';
 import LoadingIndicator  from '../../common/LoadingIndicator';
 import './Show.css';
 import NotFound from '../../common/NotFound';
@@ -80,25 +80,41 @@ function DisplayShow(props) {
   );
 }
 
-
-
 function DisplaySeasons(props) {
-  const seasons = props.show.show.seasons.map((season) =>
+  const seasons = props.show.seasons.map((season) =>
   season.episodes.length !== 0 ?
-    <Panel header={"Season " + season.season} key={season.season}>
+    <Panel header={"Season " + season.season.season} key={season.season.season}>
       <Col xs={24} sm={6} md={6} lg={6}>
-      <h1>Season {season.season}</h1>
+      <h1>Season {season.season.season}</h1>
+      <Button onClick={TrackSeason.bind(this, season.season.id)}>Track the whole season</Button>
       </Col>
       <Col xs={24} sm={14} md={14} lg={14}>
-        <Steps className="season-steps" initial={1} direction="vertical" size="small" current={8}>
       {
         season.episodes.map((episode) =>
-            <Step title={episode.title} description={episode.released} icon={<Icon type="check-circle" />} />)
+            <Row>
+            {
+              episode.isWatched ?
+              <div>
+              <Col  xs={4} sm={2} md={2} lg={2}><Icon style={{ fontSize: '32px', color: '#1890ff' }} type="check-circle" /></Col>
+              <Button onClick={TrackEpisode.bind(this, episode.episode.id)}>Untrack</Button>
+              </div>
+              :
+              <div>
+              <Col  xs={4} sm={2} md={2} lg={2}><Icon style={{ fontSize: '32px', color: '#bfbfbf' }} type="clock-circle" /></Col>
+              <Button onClick={TrackEpisode.bind(this, episode.episode.id)}>Track</Button>
+              </div>
+            }
+              <Col  xs={20} sm={22} md={22} lg={22}>
+                <h3>{episode.episode.title}</h3>
+                <p>{episode.episode.released}</p>
+              </Col>
+              <Divider style={{ width: '80%'}}/>
+            </Row>
+          )
       }
-      </Steps>
     </Col>
     <Col xs={24} sm={4} md={4} lg={4}>
-      <Progress type="circle" percent={100} width={100}/>
+      <Progress type="circle" percent={season.percent} width={100}/>
     </Col>
     </Panel>
     : null
@@ -119,6 +135,16 @@ function AddComment(showId){
 
 function LikeShow(id){
   likeShow(id);
+  window.location.reload();
+}
+
+function TrackEpisode(episodeId){
+  trackEpisode(episodeId);
+  window.location.reload();
+}
+
+function TrackSeason(seasonId){
+  trackSeason(seasonId);
   window.location.reload();
 }
 
