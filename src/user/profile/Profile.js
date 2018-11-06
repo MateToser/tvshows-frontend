@@ -102,7 +102,7 @@ class Profile extends Component {
                                   <List.Item.Meta
                                     avatar={<Link to={"../../show/id/" + item.id}><Avatar src={item.posterUrl} /></Link>}
                                     title={<Link to={"../../show/id/" + item.id}>{item.title}</Link>}
-                                    description={item.released + " | " + item.seasons + " season(s)"}
+                                    description={item.released + " | " + item.totalSeasons + " season(s)"}
                                   />
                                 </List.Item>
                               )}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { getAllShow, likeShow } from '../../api/api';
-import { Card, Row, Col, BackTop, Icon, Divider } from 'antd';
+import { getOrderedShows, getAllShow, likeShow, searchShows } from '../../api/api';
+import { Card, Row, Col, BackTop, Icon, Divider, Input } from 'antd';
 import LoadingIndicator  from '../../common/LoadingIndicator';
 import './Shows.css';
 import NotFound from '../../common/NotFound';
@@ -9,6 +9,7 @@ import ServerError from '../../common/ServerError';
 import { Link } from 'react-router-dom';
 
 const { Meta } = Card;
+const Search = Input.Search;
 
 function ListShows(props) {
   const content = props.shows.map((show) =>
@@ -34,7 +35,7 @@ function ListShows(props) {
           <p>Released: {show.show.released}</p>
         </div>
         <div className="show-seasons">
-          <p>Seasons: {show.show.seasons}</p>
+          <p>Seasons: {show.show.totalSeasons}</p>
         </div>
         <div className="show-awards">
           <p>Awards: {show.show.awards}</p>
@@ -59,15 +60,50 @@ function LikeShow(id){
   window.location.reload();
 }
 
+function onSelect(value) {
+  console.log('onSelect', value);
+}
+
 class Shows extends Component {
     constructor(props) {
         super(props);
         this.state = {
             shows: null,
+            search: [],
             isLoading: false
         }
         this.loadShows = this.loadShows.bind(this);
     }
+
+    search(title){
+      if(title){
+          searchShows(title)
+          .then(response => {
+              this.setState({
+                  search: response
+              });
+              window.location.href = '/show/id/' + this.state.search[0].showId;
+          }).catch(error => {
+              if(error.status === 404) {
+                  this.setState({
+                      notFound: true,
+                      isLoading: false
+                  });
+              } else if(error.status === 401) {
+                  this.setState({
+                      authRequired: true,
+                      isLoading: false
+                  });
+              } else {
+                  this.setState({
+                      serverError: true,
+                      isLoading: false
+                  });
+              }
+          })
+        }
+      }
+
 
     loadShows() {
         this.setState({
@@ -105,6 +141,7 @@ class Shows extends Component {
     }
 
     render() {
+
         if(this.state.isLoading) {
             return <LoadingIndicator />;
         }
@@ -123,6 +160,13 @@ class Shows extends Component {
 
         return (
           <div className="show">
+            <div className="search-box">
+              <Search
+                className="search-show"
+                placeholder="Search by title"
+                onSearch={title => this.search(title)}
+              />
+            </div>
             <BackTop/>
               {
                   this.state.shows ? (

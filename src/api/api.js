@@ -46,10 +46,10 @@ export function checkEmailAvailability(email) {
     });
 }
 
-export function getShowByTitle(title) {
+export function addShowByTitle(title) {
     return request({
         url: API_BASE_URL + "/show/" + title,
-        method: 'GET'
+        method: 'POST'
     });
 }
 
@@ -88,6 +88,27 @@ export function likeShow(id) {
 export function getShowById(id) {
     return request({
         url: API_BASE_URL + "/show/id/" + id,
+        method: 'GET'
+    });
+}
+
+export function getOrderedShows(order, page) {
+    return request({
+        url: API_BASE_URL + "/show/" + order + "/" + page,
+        method: 'GET'
+    });
+}
+
+export function addComment(showId, comment) {
+    return request({
+        url: API_BASE_URL + "/comment/" + showId + "/" + comment,
+        method: 'POST'
+    });
+}
+
+export function searchShows(title) {
+    return request({
+        url: API_BASE_URL + "/show/search/" + title,
         method: 'GET'
     });
 }

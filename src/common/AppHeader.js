@@ -33,6 +33,11 @@ class AppHeader extends Component {
                 <Icon type="search" className="nav-icon" />
               </Link>
             </Menu.Item>,
+            <Menu.Item key="/add">
+              <Link to="/add">
+                <Icon type="plus" className="nav-icon" />
+              </Link>
+            </Menu.Item>,
           <Menu.Item key="/profile" className="profile-menu">
                 <ProfileDropdownMenu
                   currentUser={this.props.currentUser}
@@ -41,6 +46,11 @@ class AppHeader extends Component {
           ];
         } else {
           menuItems = [
+            <Menu.Item key="/">
+              <Link to="/">
+                <Icon type="home" className="nav-icon" />
+              </Link>
+            </Menu.Item>,
             <Menu.Item key="/login">
               <Link to="/login">Login</Link>
             </Menu.Item>,

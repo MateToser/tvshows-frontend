@@ -1,0 +1,19 @@
+.add-comment-button{
+  float: right;
+}
+
+.add-comment-row{
+  margin: 30px 0px;
+}
+
+.comment-row{
+  margin-bottom: 50px;
+}
+
+.search-show{
+  width: 200px;
+}
+
+.search-box{
+  text-align: right;
+}
